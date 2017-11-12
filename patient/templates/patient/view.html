@@ -1,0 +1,31 @@
+{% extends 'base_generic.html'%}
+{% block content %}
+<h4>{{title}}</h4>
+
+
+{% if patient %}
+    <form action="{% url 'patient:edit' patient.id %}" method="post">
+{% else %}
+    <form action="{% url 'patient:new' %}" method="post">
+{% endif %}
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="input-field">
+            {{ field }}
+            <label for="{{field.name}}">{{field.label}}</label>
+        </div>
+    {% endfor %}
+    <button class="orange btn waves-effect waves-light btn-large" type="submit" name="action">Salvar
+        <i class="material-icons right">send</i>
+    </button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+</script>
+{% endblock %}

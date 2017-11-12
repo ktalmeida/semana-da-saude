@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+  <div class="row center">
+    <div class="col s12 m6">
+      <a href="{% url 'patient:new' %}" class="black-text">
+        <div class="card-panel">
+          <span>
+            Pacientes
+          </span>
+          <br><br><br><br>
+      </div>
+      </a>
+  </div>
+
+  <div class="col s12 m6">
+    <a href="/referrals/index" class="black-text">
+      <div class="card-panel">
+        <span>
+          Encaminhamentos
+        </span>
+        <br><br><br><br>
+    </div>
+    </a>
+  </div>
+{% endblock %}

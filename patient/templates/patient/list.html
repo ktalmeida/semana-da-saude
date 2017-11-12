@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+<h2>Pacientes</h2>
+
+<ul class="collapsible" data-collapsible="accordion">
+    {% for patient in patients %}
+        <li>
+            <div class="collapsible-header">{{ patient.name|upper }}</div>
+            <div class="collapsible-body"><span>{{ patient.notes }}</span></div>
+        </li>
+  {% endfor %}
+</ul>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large orange" href="/patients/new">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
+
+{% endblock %}
