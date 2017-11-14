@@ -4,14 +4,41 @@
 
 <h2>Pacientes</h2>
 
+{% if patients %}
 <ul class="collapsible" data-collapsible="accordion">
     {% for patient in patients %}
         <li>
-            <div class="collapsible-header">{{ patient.name|upper }}</div>
-            <div class="collapsible-body"><span>{{ patient.notes }}</span></div>
+            <div class="collapsible-header valign-wrapper">
+                    {{ patient.name|upper }}
+            </div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col s4">
+                        <p><b>Nome da mãe: </b> {{ patient.mother_name }}</p>
+                        <p><b>Endereço: </b> {{ patient.address }}</p>
+                        <p><b>Telefone: </b> {{ patient.phone }}</p>
+                        <p><b>Aniversário: </b> {{ patient.birthdate|date:"d/m/Y" }}</p>
+                    </div>
+                    {% if patient.notes %}
+                        <div class="col s4">
+                            <p><b>Observações: </b> {{ patient.notes }}</p>
+                        </div>
+                    {% endif %}
+                    <div class="col s4">
+                            <p class="valign-wrapper"><b>Histórico familiar: </b> {% if patient.prostate_history %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
+                            <p class="valign-wrapper"><b>Problemas para urinar: </b> {% if patient.trouble_urinating %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
+                            <p class="valign-wrapper"><b>Nódulo suspeito: </b> {% if patient.suspicious_node %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
+                    </div>
+                </div>
+                <a href="/patients/{{patient.id}}" class="waves-effect waves-light orange btn"><i class="material-icons white-text left">edit</i>Editar</a>
+            </div>
         </li>
   {% endfor %}
 </ul>
+{% else %}
+<p>Nenhum paciente cadastrado até o momento.</p>
+{% endif %}
+
 
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large orange" href="/patients/new">
