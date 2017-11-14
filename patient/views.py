@@ -36,6 +36,7 @@ def create(request):
             patient = form.save()
             return redirect('patient:list')
         else:
+            print(form.errors)
             return render(
             request, 'patient/view.html',
             { 'title': title, 'form': form })
