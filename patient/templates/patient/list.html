@@ -5,6 +5,28 @@
 <h2>Pacientes</h2>
 
 {% if patients %}
+<ul class="pagination center">
+    <span class="step-links">
+        <li
+            {% if patients.has_previous %}
+                class="waves-effect"><a href="?page={{patients.previous_page_number}}"><i class="material-icons">chevron_left</i></a>
+            {% else %}
+                class="disabled"><a><i class="material-icons">chevron_left</i></a>
+            {% endif %}
+        </li>
+        {% for number in page_range %}
+            <li {% if number == patients.number %} class="active orange" {% else %} class="waves-effect" {% endif %} ><a href="?page={{number}}">{{number}}</a></li>
+        {% endfor %}
+        <li
+            {% if patients.has_next %}
+                class="waves-effect"><a href="?page={{patients.next_page_number}}"><i class="material-icons">chevron_right</i></a>
+            {% else %}
+                class="disabled"><a><i class="material-icons">chevron_right</i></a>
+            {% endif %}
+        </li
+    </span>
+</ul>
+
 <ul class="collapsible" data-collapsible="accordion">
     {% for patient in patients %}
         <li>

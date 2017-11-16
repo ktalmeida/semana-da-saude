@@ -1,24 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Patient
+from .models import Patient, CHARACTER_CHOICES, REFERAL_PLACES
 from .forms import PatientForm
+from datetime import datetime
 
 
 def get_registry_number():
     return Patient.objects.count() + 1
 
+
 def index(request):
     patient_list = Patient.objects.all()
     paginator = Paginator(patient_list, 25)
-    page = request.GET.get('page')
+    page = int(request.GET.get('page', 1))
+    print(paginator.num_pages)
     try:
         patients = paginator.page(page)
     except PageNotAnInteger:
         patients = paginator.page(1)
     except EmptyPage:
         patients = paginator.page(paginator.num_pages)
-    return render(request, 'patient/list.html', {'patients': patients})
+    page_range = range(1, patients.paginator.num_pages)
+    return render(request, 'patient/list.html', {
+        'patients': patients, 'page_range': page_range})
 
 
 def create(request):
