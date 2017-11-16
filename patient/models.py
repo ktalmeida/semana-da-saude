@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 CHARACTER_CHOICES = ['ELETIVO', 'URGÊNCIA']
@@ -44,6 +45,17 @@ class Patient(models.Model):
         max_length=100, verbose_name="Especificar local",
         null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_age(self):
+        today = datetime.now().date()
+        age = today.year - self.birthdate.year
+        if today.month < self.birthdate.month:
+            age = age - 1
+        elif today.month == self.birthdate.month and \
+                today.day >= self.birthdate.day:
+            age = age - 1
+        return age
+
 
     class Meta:
         ordering = ['-created_at']
