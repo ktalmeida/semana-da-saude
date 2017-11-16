@@ -1,0 +1,9 @@
+Django==1.11.7
+fake-factory==9999.9.9
+Faker==0.8.7
+olefile==0.44
+Pillow==4.3.0
+python-dateutil==2.6.1
+pytz==2017.3
+six==1.11.0
+text-unidecode==1.1
