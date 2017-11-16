@@ -1,0 +1,103 @@
+{% extends 'base_generic.html'%}
+{% block styles %}
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+<br>
+<ul>
+    <li>
+        <div class="row valign-wrapper">
+            <div class="col m6 form-label-md" >
+                <b> CADASTRO NÚMERO: </b> {{patient.id}}
+            </div>
+            <div class="col m6 form-label-sm " >
+                <b> Data: </b> {{ time }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col m6 form-label-sm" >
+                <b> Nome: </b> {{patient.name|upper}}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col m6 form-label-sm" >
+                <b> Nome da mãe: </b> {{patient.mother_name|upper}}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col form-label-sm" >
+                <b> Endereço: </b> {{patient.address|upper}}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col form-label-sm" >
+                <b> Telefone: </b> {{patient.phone}}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col m4 form-label-sm" >
+                <b> Data de nascimento: </b> {{patient.birthdate|date:"d/m/Y"}}
+            </div>
+            <div class="col m4 form-label-sm" >
+                <b> Idade: </b> {{patient_age}}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col m4 form-label-sm" >
+                <b> Histórico familiar: </b> {% if patient.prostate_history %} SIM {% else %} NÃO {% endif %}
+            </div>
+            <div class="col m4 form-label-sm" >
+                <b> Problemas para urinar: </b> {% if patient.trouble_urinating %} SIM {% else %} NÃO {% endif %}
+            </div>
+            <div class="col m4 form-label-sm" >
+                <b> Nódulo suspeito: </b> {% if patient.suspicious_nodule %} SIM {% else %} NÃO {% endif %}
+            </div>
+        </div>
+    </li>
+    {% if patient.notes %}
+        <li>
+            <div class="row">
+                <div class="col form-label-sm" >
+                    <b> Observações: </b> {{patient.notes}}
+                </div>
+            </div>
+            <br><br><br>
+        </li>
+    {% endif %}
+    {% if patient.has_referral %}
+        <li>
+            <div class="row">
+                <div class="col form-label-sm" style="text-align: justify;">
+                    <b> O PACIENTE PARTICIPOU DA SEMANA DA SAÚDE DA SECRETARIA DE SAÚDE DO ESTADO DO RIO DE JANEIRO (AÇÃO DO NOVEMBRO AZUL) E FOI ENCAMINHADO PARA O SEGUINTE LOCAL PARA MARCAÇÃO DE CONSULTA: </b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 form-label-sm" >
+                    <b> Caráter: </b> {% if patient.referral_character == 0 %} {{ CHARACTER_CHOICES.O }} {% else %} {{CHARACTER_CHOICES.1}} {% endif %}
+                </div>
+                <div class="col m6 form-label-sm">
+                    <b> Local: </b> {% if patient.referral_character == 0 %} {{ REFERAL_PLACES.O }} {% elif patient.referral_character == 1 %} {{REFERAL_PLACES.1}} {% else %} {{REFERAL_PLACES.2}}: {{patient.other_referral_place}} {% endif %}
+                </div>
+            </div>
+        </li>
+    {% endif %}
+    <li class="center">
+        <br><br><br>
+        <p>Atenciosamente, Data: {{time}}</p>
+        <br><br>
+        <hr>
+    </li>
+</ul>
+{% endblock %}
