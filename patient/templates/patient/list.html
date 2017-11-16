@@ -53,10 +53,13 @@
                     </div>
                 </div>
                 <a href="/patients/{{patient.id}}" class="waves-effect waves-light orange btn"><i class="material-icons white-text left">edit</i>Editar</a>
+                <a href="/patients/{{patient.id}}/print" class="waves-effect waves-light orange btn"><i class="material-icons white-text left">print</i>Imprimir</a>
             </div>
         </li>
   {% endfor %}
 </ul>
+
+
 {% else %}
 <p>Nenhum paciente cadastrado até o momento.</p>
 {% endif %}

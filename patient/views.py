@@ -39,9 +39,8 @@ def create(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             patient = form.save()
-            return redirect('patient:list')
+            return redirect('patient:print', patient_id=patient.id)
         else:
-            print(form.errors)
             return render(
             request, 'patient/view.html',
             { 'title': title, 'form': form })
@@ -61,13 +60,22 @@ def edit(request, patient_id):
         form = PatientForm(request.POST, instance=patient, )
         if form.is_valid():
             patient.save()
-            return redirect('patient:list')
+            return redirect('patient:print', patient_id=patient.id)
         else:
-            print(form.errors)
             return render(
             request, 'patient/view.html',
             { 'title': 'Paciente', 'patient': patient, 'form': form})
 
 
-def delete(request):
-    pass
+def print_patient(request, patient_id):
+    patient = get_object_or_404(Patient, pk=patient_id)
+    return render(
+            request, 'patient/print.html',
+            {
+                'title': 'Paciente',
+                'patient': patient,
+                'time': datetime.now().strftime('%d/%m/%Y'),
+                'CHARACTER_CHOICES': CHARACTER_CHOICES,
+                'REFERAL_PLACES': REFERAL_PLACES,
+                'patient_age': patient.get_age()
+            })
