@@ -24,6 +24,10 @@ class Patient(models.Model):
     suspicious_nodule = models.NullBooleanField(
         verbose_name="Possui nódulo suspeito?")
 
+    psa_positive = models.NullBooleanField(
+        verbose_name="Exame de PSA Positivo?",
+        default=False, blank=True, null=True)
+
     has_referral = models.NullBooleanField(
         verbose_name="Encaminhamento", default=False)
 
