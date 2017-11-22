@@ -48,6 +48,10 @@
         toggleReferral();
     });
 
+    $('form').submit(function() {
+      $(this).find("button[type='submit']").prop('disabled',true);
+    });
+
     $("#id_referral_place").on('change', function() {
         toggleOther();
     })
