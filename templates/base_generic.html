@@ -32,5 +32,15 @@
   <script src="/static/js/jquery-3.2.1.min.js" ></script>
   <script src="/static/js/materialize.min.js" ></script>
   {% block scripts %} {% endblock %}
+
+  <script type="text/javascript">
+    {% if flash is not None %}
+        $(function() {
+          var msg = $.parseHTML('<div>{{flash.message}}</div>')
+          Materialize.toast($(msg) , 4000, '{{flash.color}}')
+        })
+    {% endif %}
+  </script>
+
   </body>
 </html>

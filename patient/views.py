@@ -9,6 +9,15 @@ from datetime import datetime
 def get_registry_number():
     return Patient.objects.count() + 1
 
+def create_flash(color, message):
+    return {
+        'color': color,
+        'message': message
+    }
+
+def get_error_msg(form):
+    return 'Formulário inválido'
+
 
 def index(request):
     patient_list = Patient.objects.all()
@@ -28,43 +37,54 @@ def index(request):
 
 def create(request):
     title = 'Novo paciente'
-    if request.method == 'GET':
-        return render(
-            request, 'patient/view.html',
-            {
-                'title': title,
-                'form': PatientForm(), 'number': get_registry_number(),
-            })
-    else:
+    response_args = {
+        'title': title,
+        'form': PatientForm(),
+        'number': get_registry_number(),
+    }
+    if request.method == 'POST':
         form = PatientForm(request.POST)
+        response_args['form'] = form
         if form.is_valid():
             patient = form.save()
-            return redirect('patient:new')
+            response_args.update({
+                'flash': create_flash('green', 'Paciente criado com sucesso!')
+            })
         else:
-            return render(
-            request, 'patient/view.html',
-            { 'title': title, 'form': form })
+            response_args.update({
+                'flash': create_flash('red', get_error_msg(form))
+            })
+
+    return render(
+        request, 'patient/view.html', response_args)
 
 
 def edit(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
     form = PatientForm(instance=patient)
+    response_args = {
+        'title': 'Editar Paciente',
+        'number': patient.id,
+        'patient': patient,
+        'form': form
+    }
     if request.method == 'GET':
         return render(
-            request, 'patient/view.html',
-            {
-                'title': 'Paciente',
-                'patient': patient, 'form': form, 'number': patient.id
-            })
+            request, 'patient/view.html', response_args)
     else:
-        form = PatientForm(request.POST, instance=patient, )
+        form = PatientForm(request.POST, instance=patient)
+        response_args['form'] = form
         if form.is_valid():
             patient.save()
-            return redirect('patient:print', patient_id=patient.id)
+            response_args.update({
+                'flash': create_flash('green', 'Paciente editado com sucesso!')
+            })
         else:
-            return render(
-            request, 'patient/view.html',
-            { 'title': 'Paciente', 'patient': patient, 'form': form})
+            response_args.update({
+                'flash': create_flash('red', get_error_msg(form))
+            })
+        return render(
+            request, 'patient/view.html', response_args)
 
 
 def print_patient(request, patient_id):
