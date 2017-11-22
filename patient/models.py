@@ -8,7 +8,8 @@ REFERAL_PLACES = ['Clínica da família', 'Policlínica Piquet Carneiro', 'Outro
 class Patient(models.Model):
     """Patient model"""
     name = models.CharField(max_length=100, verbose_name="Nome do paciente")
-    mother_name = models.CharField(max_length=100, verbose_name="Nome da mãe")
+    mother_name = models.CharField(
+        max_length=100, verbose_name="Nome da mãe", null=True, blank=True)
     address = models.CharField(max_length=300, verbose_name="Endereço")
     phone = models.CharField(max_length=100, verbose_name="Telefone")
     birthdate = models.DateField(verbose_name="Data de nascimento")
