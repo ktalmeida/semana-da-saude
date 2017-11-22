@@ -55,14 +55,17 @@
     </li>
     <li>
         <div class="row">
-            <div class="col m4 form-label-sm" >
+            <div class="col m3 form-label-sm" >
                 <b> Histórico familiar: </b> {% if patient.prostate_history %} SIM {% else %} NÃO {% endif %}
             </div>
-            <div class="col m4 form-label-sm" >
+            <div class="col m3 form-label-sm" >
                 <b> Problemas para urinar: </b> {% if patient.trouble_urinating %} SIM {% else %} NÃO {% endif %}
             </div>
-            <div class="col m4 form-label-sm" >
+            <div class="col m3 form-label-sm" >
                 <b> Nódulo suspeito: </b> {% if patient.suspicious_nodule %} SIM {% else %} NÃO {% endif %}
+            </div>
+            <div class="col m3 form-label-sm" >
+                <b>Exame PSA positivo: </b> {% if patient.psa_positive %} SIM {% else %} NÃO {% endif %}
             </div>
         </div>
     </li>

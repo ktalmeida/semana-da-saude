@@ -50,6 +50,7 @@
                             <p class="valign-wrapper"><b>Histórico familiar: </b> {% if patient.prostate_history %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
                             <p class="valign-wrapper"><b>Problemas para urinar: </b> {% if patient.trouble_urinating %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
                             <p class="valign-wrapper"><b>Nódulo suspeito: </b> {% if patient.suspicious_nodule %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
+                            <p class="valign-wrapper"><b>Exame PSA positivo: </b> {% if patient.psa_positive %} <i class="material-icons red-text">check</i> {% else %} <i class="material-icons green-text">clear</i> {% endif %}</p>
                     </div>
                 </div>
                 <a href="/patients/{{patient.id}}" class="waves-effect waves-light orange btn"><i class="material-icons white-text left">edit</i>Editar</a>
