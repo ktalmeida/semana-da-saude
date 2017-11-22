@@ -39,7 +39,7 @@ def create(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             patient = form.save()
-            return redirect('patient:print', patient_id=patient.id)
+            return redirect('patient:new')
         else:
             return render(
             request, 'patient/view.html',
