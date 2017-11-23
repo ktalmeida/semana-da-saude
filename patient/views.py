@@ -44,13 +44,14 @@ def create(request):
     }
     if request.method == 'POST':
         form = PatientForm(request.POST)
-        response_args['form'] = form
         if form.is_valid():
             patient = form.save()
+            response_args['number'] = response_args['number'] + 1
             response_args.update({
                 'flash': create_flash('green', 'Paciente criado com sucesso!')
             })
         else:
+            response_args['form'] = form
             response_args.update({
                 'flash': create_flash('red', get_error_msg(form))
             })
