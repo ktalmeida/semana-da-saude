@@ -20,17 +20,18 @@ def get_error_msg(form):
 
 
 def index(request):
-    patient_list = Patient.objects.all()
-    paginator = Paginator(patient_list, 25)
     page = int(request.GET.get('page', 1))
-    print(paginator.num_pages)
+    name = request.GET.get('name', None)
+    patient_list = Patient.objects.all() if name is None else \
+        Patient.objects.filter(name__contains=name)
+    paginator = Paginator(patient_list, 25)
     try:
         patients = paginator.page(page)
     except PageNotAnInteger:
         patients = paginator.page(1)
     except EmptyPage:
         patients = paginator.page(paginator.num_pages)
-    page_range = range(1, patients.paginator.num_pages)
+    page_range = range(1, patients.paginator.num_pages + 1)
     return render(request, 'patient/list.html', {
         'patients': patients, 'page_range': page_range})
 
