@@ -11,16 +11,27 @@
 </head>
 <body>
   <nav class="blue darken-4" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"><img src="/static/img/logo.png"></a>
-<!--       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Cadastro de Paciente</a></li>
-        <li><a href="#">Encaminhamento</a></li>
-      </ul>
- -->
-      <!-- <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> -->
+    <!-- <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"><</a> -->
+      <div class="container nav-wrapper">
+        <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="{% url 'patient:list' %}" class="brand-logo center"><img src="/static/img/logo.png"></a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="{% url 'patient:list' %}">Início</a></li>
+          {% if request.get_full_path == '/patients/new' %}
+            <li><a href="{% url 'patient:list' %}">Voltar</a></li>
+          {% else %}
+            <li><a href="{% url 'patient:new' %}">Cadastrar</a></li>
+          {% endif %}
+        </ul>
+        <ul id="mobile-menu" class="side-nav">
+          <li><a href="{% url 'patient:list' %}">Início</a></li>
+          {% if request.get_full_path == '/patients/new' %}
+            <li><a href="{% url 'patient:list' %}">Voltar</a></li>
+          {% else %}
+            <li><a href="{% url 'patient:new' %}">Cadastrar</a></li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -40,6 +51,7 @@
           Materialize.toast($(msg) , 4000, '{{flash.color}}')
         })
     {% endif %}
+    $(".button-collapse").sideNav();
   </script>
 
   </body>
