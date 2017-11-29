@@ -85,8 +85,7 @@ def edit(request, patient_id):
             response_args.update({
                 'flash': create_flash('red', get_error_msg(form))
             })
-        return render(
-            request, 'patient/view.html', response_args)
+        return redirect('patient:list')
 
 
 def print_patient(request, patient_id):
