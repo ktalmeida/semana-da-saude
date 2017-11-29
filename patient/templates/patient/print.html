@@ -22,13 +22,15 @@
             </div>
         </div>
     </li>
-    <li>
-        <div class="row">
-            <div class="col m6 form-label-sm" >
-                <b> Nome da mãe: </b> {{patient.mother_name|upper}}
+    {% if patient.mother_name %}
+        <li>
+            <div class="row">
+                <div class="col m6 form-label-sm" >
+                    <b> Nome da mãe: </b> {{patient.mother_name|upper}}
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+    {% endif %}
     <li>
         <div class="row">
             <div class="col form-label-sm" >
