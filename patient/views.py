@@ -23,7 +23,6 @@ def get_error_msg(form):
 def index(request):
     page = int(request.GET.get('page', 1))
     name = request.GET.get('name', None)
-    print(name)
     if name is None:
         return render(request, 'patient/list.html')
     patient_list = Patient.objects.filter(name__contains=name)
