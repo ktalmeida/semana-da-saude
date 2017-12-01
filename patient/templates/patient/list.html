@@ -65,7 +65,7 @@
             {% endif %}
         </li>
         {% for number in page_range %}
-            <li {% if number == patients.number %} class="active orange" {% else %} class="waves-effect" {% endif %} ><a href="?page={{number}}">{{number}}</a></li>
+            <li {% if number == patients.number %} class="active orange" {% else %} class="waves-effect" {% endif %} ><a href="?page={{number}}&name={{name}}">{{number}}</a></li>
         {% endfor %}
         <li
             {% if patients.has_next %}
