@@ -59,7 +59,7 @@
     <span class="step-links">
         <li
             {% if patients.has_previous %}
-                class="waves-effect"><a href="?page={{patients.previous_page_number}}"><i class="material-icons">chevron_left</i></a>
+                class="waves-effect"><a href="?page={{patients.previous_page_number}}&name={{name}}"><i class="material-icons">chevron_left</i></a>
             {% else %}
                 class="disabled"><a><i class="material-icons">chevron_left</i></a>
             {% endif %}
@@ -69,7 +69,7 @@
         {% endfor %}
         <li
             {% if patients.has_next %}
-                class="waves-effect"><a href="?page={{patients.next_page_number}}"><i class="material-icons">chevron_right</i></a>
+                class="waves-effect"><a href="?page={{patients.next_page_number}}&name={{name}}"><i class="material-icons">chevron_right</i></a>
             {% else %}
                 class="disabled"><a><i class="material-icons">chevron_right</i></a>
             {% endif %}
