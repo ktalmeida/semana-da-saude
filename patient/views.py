@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Patient, CHARACTER_CHOICES, REFERAL_PLACES
 from .forms import PatientForm
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 
 def get_registry_number():
@@ -18,13 +19,16 @@ def create_flash(color, message):
 def get_error_msg(form):
     return 'Formulário inválido'
 
-
+@login_required
 def index(request):
     page = int(request.GET.get('page', 1))
     name = request.GET.get('name', None)
-    patient_list = Patient.objects.all() if name is None else \
-        Patient.objects.filter(name__contains=name)
+    print(name)
+    if name is None:
+        return render(request, 'patient/list.html')
+    patient_list = Patient.objects.filter(name__contains=name)
     paginator = Paginator(patient_list, 25)
+
     try:
         patients = paginator.page(page)
     except PageNotAnInteger:
@@ -33,9 +37,9 @@ def index(request):
         patients = paginator.page(paginator.num_pages)
     page_range = range(1, patients.paginator.num_pages + 1)
     return render(request, 'patient/list.html', {
-        'patients': patients, 'page_range': page_range})
+        'patients': patients, 'page_range': page_range, 'name': name})
 
-
+@login_required
 def create(request):
     title = 'Novo paciente'
     response_args = {
@@ -60,7 +64,7 @@ def create(request):
     return render(
         request, 'patient/view.html', response_args)
 
-
+@login_required
 def edit(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
     form = PatientForm(instance=patient)
@@ -87,7 +91,7 @@ def edit(request, patient_id):
             })
         return redirect('patient:list')
 
-
+@login_required
 def print_patient(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
     return render(
