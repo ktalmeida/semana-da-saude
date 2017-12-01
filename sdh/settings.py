@@ -129,4 +129,4 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/patients'
 LOGIN_URL = '/login'
-STATIC_ROOT = '/var/www/static/''
+STATIC_ROOT = '/var/www/static/'
