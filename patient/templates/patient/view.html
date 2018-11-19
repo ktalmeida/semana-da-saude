@@ -28,6 +28,9 @@
 {% block scripts %}
 <script src="/static/js/jquery.mask.min.js" ></script>
 <script type="text/javascript">
+    if (window.history.replaceState) {
+      window.history.replaceState( null, null, window.location.href );
+    }
     $(document).ready(function() {
         $('select').material_select();
         toggleOther();
